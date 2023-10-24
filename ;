@@ -1,0 +1,24 @@
+import {useState} from 'react';
+
+export default function Game() {
+  let [board,setBoard] : [Array<boolean>,any] = useState([]);
+
+  board = [false,false,false,false,false]; 
+  
+  function setItem(id : number, value : boolean) {
+    const newBoard = board;
+    newBoard[id] = value;
+    setBoard(newBoard);
+    console.log('set board value');
+  }
+
+  const displayBoard = board.map((entry,i) => 
+      (<button onClick={()=>{setItem(i,true);}}>{entry ? 'true' : 'false'}</button>))
+  
+  return (
+      <div>
+        <h1> GAME </h1>
+        {displayBoard}
+      </div>
+  );
+}
