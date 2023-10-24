@@ -4,7 +4,7 @@ export default function App () {
   return (
       <div>
         <h1> APP </h1>
-        <Game/>
+        <Game dimensions={{x:2,y:10}}/>
       </div>
   )
 }

@@ -1,11 +1,16 @@
 import {useState} from 'react';
 
-const initialBoard = [false,false,false,false,false]; 
+interface BoardProps {
+  dimensions: {x : number, y : number};
+  onFinish?: ()=>void;
+}
 
-export default function Game() {
-  let [board,setBoard] : [Array<boolean>,any] = useState(initialBoard);
+export default function Game(props : BoardProps) {
+  // this is the "revealed cells" matrix
+  let [board,setBoard] : [Array<boolean>,any] = useState(Array(props.dimensions.x * props.dimensions.y).fill(false));
   
-  function setCell(id : number, value : boolean) {
+  // macro for change a cell in the board state
+  const setCell = (id : number, value : boolean) => {
     const newBoard = board.map((x,i) => {
         if (i === id) {
           return value;
@@ -15,9 +20,9 @@ export default function Game() {
         }
     });
     setBoard(newBoard);
-    console.log('set board value');
   }
 
+  // the visual we see in the app
   const displayBoard = board.map((entry,i) => 
       (<button key={i} onClick={()=>{setCell(i,true);}}>{entry ? 'true' : 'false'}</button>))
   
